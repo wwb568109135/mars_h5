@@ -8,7 +8,7 @@
 
     ## 步骤 2
 
-    工程项目上再引入mars_h5.js 或者调用的时候接入类库的cdn地址既可：http://app.hxsapp.com/html/js/mars_h5.js?t=1521186655083
+    工程项目上再引入mars_h5.js 或者调用的时候接入类库的cdn地址既可：http://you-cdn-url.com/html/js/mars_h5.js?t=1521186655083
 
 
     ## 步骤 3
