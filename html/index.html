@@ -1,1 +1,192 @@
 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>无痕埋点h5的简单demo的使用-v1版本</title>
+  </head>
+  <body>
+    <div id="app-box"></div>
+
+    <a id="fuji1" href="javascript:void(0);">
+      <br />
+      text:这里是a的标签
+      <br />
+      <p>
+        p1<br />
+        p1
+      </p>
+      <p>
+          p2<br />
+          p2
+        </p>
+      <h1>
+        h1h1h1<br />
+      </h1>
+      <a id="ziji1" href="javascript:void(0);">
+        这是嵌套的a标签<br />
+      </a>
+    </a>
+    <br />
+
+    <button>
+      &lt;button&gt;:<br />
+      这里是button的标签
+    </button> 
+    <hr> 
+    
+    <a href="javascript:void(0);" mars_sign="a:wuwanbin">
+      &lt;a&gt;:<br />
+      这里是a属性[mars_sign]的的标签
+    </a>
+    <hr> 
+    <button mars_sign="buttom:data">
+      &lt;button&gt;:<br />
+      这里是button属性[mars_sign]的标签
+    </button> 
+    
+    <br />
+    <br />
+    <br />
+
+    
+    <div id="mock_div0" style="border:1px solid red;margin:10px auto;padding:10px;">
+      这里是业务标签div的点击触发区域<br />
+    </div>
+
+    <div id="mock_div1" style="border:1px solid red;margin:10px auto;padding:10px;">
+      js调用Mar.Request.diySend<br />
+      这里是业务标签div的自定义埋点的点击触发区域<br />
+    </div>
+
+    <div id="mock_div2" mars_sign="mars_sign|buttom|mock_div2" style="border:1px solid blue;margin:10px auto;padding:10px;">
+      mock_div这里是业务标签div含有［mars_sign］的点击触发区域<br />
+      mock_div这里是业务标签div含有［mars_sign］的点击触发区域<br />
+      mock_div这里是业务标签div含有［mars_sign］的点击触发区域<br />
+    </div>
+
+    <hr>
+    <br />  
+    <br />  
+    <br />  
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <xmp theme="united" style="display:none;">
+    # 无痕埋点h5的简单demo的使用-v1
+
+    ## 步骤 1
+
+    页面上先引入jquery的类库
+
+    ## 步骤 2
+
+    工程项目上再引入mars_h5.js 或者调用的时候接入类库的cdn地址既可：http://app.hxsapp.com/html/js/mars_h5.js?t=1521186655083
+
+
+    ## 步骤 3
+
+    在html的闭合标签下面，接入下面的js代码即可：
+
+
+    ```javascript
+      var hxs_config_maq = hxs_config_maq || [];  
+
+      hxs_config_maq.push([ 'page_mars_sign_'+( (new Date()).getTime() ), 'JsonString-uuid' ]);
+      
+      (function () {  
+        var ma = document.createElement('script');  
+        ma.type = 'text/javascript';  
+        ma.id = "hxs_config_maq"
+        ma.async = true;  
+        ma.src = "/html/js/mars_h5.js?"+( (new Date()).getTime() );  
+        var s = document.getElementsByTagName('script')[0];  
+        s.parentNode.insertBefore(ma, s);  
+      })(); 
+    ```
+
+    ## 步骤 4
+
+    * 如果接入的系统是前端开发js类库是SPA框架的话，注意在页面路由离开的时候
+        *  删除window对象的hxs_config_maq
+        *  删除mars_h5.js文件的dmo上id＝hxs_config_maq
+
+
+    * hxs_config_maq 是配置当前页面的初始化埋点数据的自定义变量字段
+
+
+    ##有问题反馈
+    在使用中有任何问题，欢迎反馈给我，可以用以下联系方式跟我交流
+
+    * wiki的文档待完善
+
+
+    </xmp>
+
+    <script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+    
+    <script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.js"></script>
+
+    <script type="text/javascript">  
+
+    // {"test":1,"test2":2,"test3":3}
+
+    // util.initMarsH5()
+
+    // util.removeMarsH5()
+
+      if( window.hxs_config_maq ){
+        console.log("提示：window.hxs_config_maq 已经存在了，请重置此对象，无法执行埋点");
+
+      }else{
+
+        window.hxs_config_maq = [];  
+        
+        // hxs_config_maq.push([ 'pages_init_'+( (new Date()).getTime() ), 'JsonString-uuid' ]);
+        hxs_config_maq.push([ 'pages_init_'+( (new Date()).getTime() ), {"test":1,"test2":2,"test3":3} ]);
+        
+        (function () {  
+          var ma = document.createElement('script');  
+          ma.type = 'text/javascript';  
+          ma.id = "hxs_config_maq"+( (new Date()).getTime() );
+          ma.async = true;  
+          ma.src = "/html/js/mars_h5.js?_t="+( (new Date()).getTime() )+"";  
+          // debugger
+          var s = document.getElementsByTagName('head')[0];  
+          s.appendChild(ma);  
+          // var s = document.getElementsByTagName('script')[0];  
+          // s.parentNode.insertBefore(ma, s);  
+        })(); 
+      }
+      
+
+    </script> 
+
+    <script>
+
+    $(document).ready(function(){
+      $("a").on("click",function(){
+        console.log("a-click，这里是业务的代码执行的逻辑")
+      })
+
+      $("#mock_div1").on("click",function(){
+        console.log("mock_div-click，这里是业务的代码执行的逻辑")
+
+        var data = {name:"wuwanbin",age:30,work:"绿瘦公司",about:"我是一个前端开发人员"}
+        console.log(typeof Mar.Util.setArgs(data))
+        console.log( Mar.Util.setArgs(data))
+
+        if( Mar && data != null && Mar.Util.isObject(data) ){
+          Mar.Request.diySeed({
+            "businessMars": data
+          })
+        }
+      })
+      
+    })
+    </script>
+  </body>
+</html>
